@@ -119,16 +119,20 @@ function createCart() {
     plusButton[i].addEventListener("click", function () {
       plusQuant(i);
       total();
+      totalCartItems();
     });
     minusButton[i].addEventListener("click", function () {
       minusQuant(i);
       total();
+      totalCartItems();
     });
     cancelButton[i].addEventListener("click", function () {
       cancelQuant(i);
       total();
+      totalCartItems();
     });
   }
+  totalCartItems();
 }
 
 function minusQuant(index) {
@@ -153,11 +157,26 @@ function cancelQuant(index) {
   cart.splice(index, 1);
   createCart();
 }
-
+// Count all Cart items
+function totalCartItems() {
+  let cartContent = 0;
+  // cart[index].quantity;
+  for (let con of cart) {
+    cartContent = cartContent + con.quantity;
+  }
+  document.getElementById("totalQuant").innerHTML = cartContent;
+}
+//function total with discount
 function total() {
   let total = 0;
   for (let val of cart) {
     total = total + val.price * val.quantity;
   }
-  document.getElementById("cart-price").innerHTML = total + " €";
+  if (total >= 100) {
+    total = total * 0.9;
+    document.getElementById("cart-price").innerHTML =
+      total + " € (with 10% discount)";
+  } else {
+    document.getElementById("cart-price").innerHTML = total + " €";
+  }
 }
