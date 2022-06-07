@@ -149,7 +149,7 @@ function plusQuant(index) {
 }
 
 function cancelQuant(index) {
-  cart[index].quantity = 1; //must be included
+  cart[index].quantity = 1; //must be included so it resets the products to 1 for next put into cart
   cart.splice(index, 1);
   createCart();
 }
