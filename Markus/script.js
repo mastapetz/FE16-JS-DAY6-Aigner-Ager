@@ -24,7 +24,7 @@ for (let val of products) {
     <img class="product-image" src="${val.image}" width="200" height="200">
     <div class="product-details">
         <p class="product-price h4 m-3">${val.price} €</p>
-        <button class="btn btn-primary product-button" type="button">ADD TO CART</button>
+        <button class="btn btn-success product-button" type="button">ADD TO CART</button>
     </div>
     </div>
     `
