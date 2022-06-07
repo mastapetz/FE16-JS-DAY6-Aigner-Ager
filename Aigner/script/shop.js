@@ -3,11 +3,11 @@
 const cartSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
 <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
 </svg>`;
-const plusSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+const plusSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
 <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
 </svg>`;
-const minusSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
+const minusSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
 <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
 </svg>`;
@@ -90,24 +90,24 @@ function createCart() {
   for (let val of cart) {
     cartRows += `
     <div class="row cart-row d-flex">
-      <div class="col-6 my-3 cart-item">
-        <img class="cart-item-image" src="${val.image}">
-        <span class="cart-item-title h5>${val.name}</span>
+      <!-- first column-->
+      <div class="col col-6 my-3 cart-item">
+        <img class="cart-item-image" src="${val.image}"></img>
+        <span class="cart-item-title h5">${val.name}</span>
       </div>
-      <span class="cart-item-price col-3 h4 my-3">${val.price} €</span>
-      <div class="cart-quantity-action col-3 d-flex">
-        <i class="minus fa fa-minus-circle my-auto"></i>
+      <!-- second column-->
+      <span class="col col-3 cart-item-price h4 my-3">${val.price} €</span>
+      <!-- first column-->
+      <div class="col col-3 cart-quantity-action d-flex">
+        <div class="btn minus">${minusSvg} </div>
+        
         <div class="cart-quantity p-4 h4">${val.quantity}</div>
-        <i class="minus fa fa-plus-circle my-auto"></i>
+        <div class="btn plus"> ${plusSvg} </div>
+
         <button class="del btn btn-danger rounded-circle my-auto ms-3 fw-bold" type="button"> X</button>
       </div>
     </div>
     `;
   }
   document.getElementById("cart-items").innerHTML = cartRows;
-}
-{
-  /* <span class="btn minus"> ${minusSvg} </span>
-<div class="btn plus"> ${plusSvg} </div>
-<div class="btn del"> ${cancelSvg} </div> */
 }
