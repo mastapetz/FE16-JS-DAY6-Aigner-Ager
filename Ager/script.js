@@ -30,30 +30,30 @@ for (let val of products) {
     `
 }
 
-var cart = [];
+var cart = []
 
 function addToCart(product) {
-    let item = cart.find((val) => val.name == product.name);
+    let item = cart.find((val) => val.name == product.name)
     if (item) {
-        item.qtty++;
+        item.qtty++
     } else {
         cart.push(product)
     }
-    createRows();
-    Total();
+    createRows()
+    Total()
 }
 
 
-let btns = document.getElementsByClassName("product-button");
+let btns = document.getElementsByClassName("product-button")
 
 for (let i = 0; i < btns.length; i++) {
     btns[i].addEventListener("click", function () {
-        addToCart(products[i]);
+        addToCart(products[i])
     })
 }
 
 function createRows() {
-    var result = "";
+    var result = ""
 
     for (let val of cart) {
         result += `
@@ -74,26 +74,30 @@ function createRows() {
     </div>
     `;
     }
-    document.getElementById("cart-items").innerHTML = result;
+    document.getElementById("cart-items").innerHTML = result
 
-    let plus = document.getElementsByClassName("plus");
-    let minus = document.getElementsByClassName("minus");
-    let del = document.getElementsByClassName("del");
+    let plus = document.getElementsByClassName("plus")
+    let minus = document.getElementsByClassName("minus")
+    let del = document.getElementsByClassName("del")
 
     for (let i = 0; i < plus.length; i++) {
         plus[i].addEventListener("click", function () {
-            plusQtty(i);
-            Total();
+            plusQtty(i)
+            Total()
+            totalCartItems()
         });
         minus[i].addEventListener("click", function () {
-            minusQtty(i);
-            Total();
+            minusQtty(i)
+            Total()
+            totalCartItems()
         });
         del[i].addEventListener("click", function () {
-            deleteItem(i);
-            Total();
+            deleteItem(i)
+            Total()
+            totalCartItems()
         });
     }
+    totalCartItems()
 }
 
 function Total() {
@@ -106,32 +110,45 @@ function Total() {
                 <strong class="cart-discount-title">Discount</strong>
                 <span id="discount" class="cart-total-price h4">-10%</span><br>
                 <strong class="cart-new-total-title">New total</strong>
-                <span id="new-total" class="cart-new-total-price h4">${discount.toFixed(2)}€</span>
+                <span id="new-total" class="cart-new-total-price h4">${discount.toFixed(2)}€</span><br>
             `
         } else {
             document.getElementById("discount").innerHTML = ""
         }
+
     }
-    document.getElementById("price").innerHTML = total.toFixed(2) + " €";
+    document.getElementById("price").innerHTML = total.toFixed(2) + " €"
+
 }
 
 function plusQtty(i) {
-    cart[i].qtty++;
-    document.getElementsByClassName("cart-quantity")[i].innerHTML = cart[i].qtty;
+    cart[i].qtty++
+    document.getElementsByClassName("cart-quantity")[i].innerHTML = cart[i].qtty
 }
 
 function minusQtty(i) {
     if (cart[i].qtty == 1) {
-        cart.splice(i, 1);
-        createRows();
+        cart.splice(i, 1)
+        createRows()
     } else {
-        cart[i].qtty -= 1;
-        document.getElementsByClassName("cart-quantity")[i].innerHTML = cart[i].qtty;
+        cart[i].qtty -= 1
+        document.getElementsByClassName("cart-quantity")[i].innerHTML = cart[i].qtty
     }
 }
 
 function deleteItem(i) {
-    cart[i].qtty = 1;
-    cart.splice(i, 1);
-    createRows();
+    cart[i].qtty = 1
+    cart.splice(i, 1)
+    createRows()
 }
+
+function totalCartItems() {
+    let cartItems = 0
+    for (let con of cart) {
+        cartItems = cartItems + con.qtty
+    }
+    document.getElementById("total-items").innerHTML =
+        `<span id="total-items" class="cart-total-items">Total items: </span>
+        <strong class="cart-total-items">${cartItems}</strong>`
+}
+totalCartItems()
