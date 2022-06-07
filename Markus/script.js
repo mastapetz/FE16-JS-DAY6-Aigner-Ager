@@ -106,8 +106,10 @@ function Total() {
                 <strong class="cart-discount-title">Discount</strong>
                 <span id="discount" class="cart-total-price h4">-10%</span><br>
                 <strong class="cart-new-total-title">New total</strong>
-                <span id="new-total" class="cart-new-total-price h4">${discount}€</span>
+                <span id="new-total" class="cart-new-total-price h4">${discount.toFixed(2)}€</span>
             `
+        } else {
+            document.getElementById("discount").innerHTML = ""
         }
     }
     document.getElementById("price").innerHTML = total.toFixed(2) + " €";
