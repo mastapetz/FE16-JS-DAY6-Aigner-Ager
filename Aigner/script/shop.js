@@ -75,6 +75,7 @@ function addToCart(flower) {
   } else {
     cart.push(flower);
   }
+  total();
   createCart();
 }
 let buttons = document.getElementsByClassName("buy-flower");
@@ -86,9 +87,9 @@ for (let i = 0; i < buttons.length; i++) {
 }
 
 function createCart() {
-  var cartRows = "";
+  document.getElementById("cart-items").innerHTML = "";
   for (let val of cart) {
-    cartRows += `
+    document.getElementById("cart-items").innerHTML += `
     <div class="row cart-row d-flex">
       <!-- first column-->
       <div class="col col-6 my-3 cart-item">
@@ -99,15 +100,64 @@ function createCart() {
       <span class="col col-3 cart-item-price h4 my-3">${val.price} €</span>
       <!-- first column-->
       <div class="col col-3 cart-quantity-action d-flex">
-        <div class="btn minus">${minusSvg} </div>
         
+        <button class="minus btn btn-transparent rounded-circle border-dark border-1 my-auto ms-3 fw-bold" type="button"> - </button>
         <div class="cart-quantity p-4 h4">${val.quantity}</div>
-        <div class="btn plus"> ${plusSvg} </div>
+        <button class="plus btn btn-transparent border-dark rounded-circle my-auto ms-3 fw-bold" type="button"> + </button>
+       
 
-        <button class="del btn btn-danger rounded-circle my-auto ms-3 fw-bold" type="button"> X</button>
+        <button class="del-btn btn btn-danger rounded-circle my-auto ms-3 fw-bold border-1" type="button"> X</button>
       </div>
     </div>
     `;
   }
-  document.getElementById("cart-items").innerHTML = cartRows;
+  let minusButton = document.getElementsByClassName("minus");
+  let plusButton = document.getElementsByClassName("plus");
+  let cancelButton = document.getElementsByClassName("del-btn");
+
+  for (let i = 0; i < plusButton.length; i++) {
+    plusButton[i].addEventListener("click", function () {
+      plusQuant(i);
+      total();
+    });
+    minusButton[i].addEventListener("click", function () {
+      minusQuant(i);
+      total();
+    });
+    cancelButton[i].addEventListener("click", function () {
+      cancelQuant(i);
+      total();
+    });
+  }
+}
+
+function minusQuant(index) {
+  if (cart[index].quantity == 1) {
+    cart.splice(index, 1);
+    createCart();
+  } else {
+    cart[index].quantity--;
+    document.getElementsByClassName("cart-quantity")[index].innerHTML =
+      cart[index].quantity;
+  }
+}
+
+function plusQuant(index) {
+  cart[index].quantity++;
+  document.getElementsByClassName("cart-quantity")[index].innerHTML =
+    cart[index].quantity;
+}
+
+function cancelQuant(index) {
+  cart[index].quantity = 1; //must be included
+  cart.splice(index, 1);
+  createCart();
+}
+
+function total() {
+  let total = 0;
+  for (let val of cart) {
+    total = total + val.price * val.quantity;
+  }
+  document.getElementById("cart-price").innerHTML = total + " €";
 }
